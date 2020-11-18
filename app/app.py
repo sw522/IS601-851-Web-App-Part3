@@ -112,7 +112,7 @@ def api_edit(home_id) -> str:
     return resp
 
 
-@app.route('/api/homes/<int:home_id>', methods=['DELETE'])
+@app.route('/api/v1/homes/<int:home_id>', methods=['DELETE'])
 def api_delete(home_id) -> str:
     resp = Response(status=210, mimetype='application/json')
     return resp
