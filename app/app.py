@@ -102,12 +102,30 @@ def api_retrieve(home_id) -> str:
 
 @app.route('/api/v1/homes/', methods=['POST'])
 def api_add() -> str:
+    cursor = mysql.get_db().cursor()
+    inputData = (request.args.get('fldSell'), request.args.get('fldList'), request.args.get('fldLiving'),
+                 request.args.get('fldRooms'), request.args.get('fldBeds'),
+                 request.args.get('fldBaths'), request.args.get('fldAge'),
+                 request.args.get('fldAcres'), request.args.get('fldTaxes'))
+    sql_insert_query = """INSERT INTO tblHomesImport (fldSell,fldList,fldLiving,fldRooms,fldBeds,fldBaths,fldAge,fldAcres,fldTaxes) VALUES (%s, %s,%s, %s,%s, %s,%s,%s,%s) """
+    cursor.execute(sql_insert_query, inputData)
+    mysql.get_db().commit()
     resp = Response(status=201, mimetype='application/json')
     return resp
 
 
 @app.route('/api/v1/homes/<int:home_id>', methods=['PUT'])
 def api_edit(home_id) -> str:
+    cursor = mysql.get_db().cursor()
+
+    inputData = (request.args.get('fldSell'), request.args.get('fldList'), request.args.get('fldLiving'),
+                 request.args.get('fldRooms'), request.args.get('fldBeds'),
+                 request.args.get('fldBaths'), request.args.get('fldAge'),
+                 request.args.get('fldAcres'), request.args.get('fldTaxes'), home_id)
+    sql_update_query = """UPDATE tblHomesImport t SET t.fldSell = %s, t.fldList = %s, t.fldLiving = %s, t.fldRooms = 
+    %s, t.fldBeds = %s, t.fldBaths = %s, t.fldAge = %s, t.fldAcres = %s, t.fldTaxes = %s WHERE t.id = %s """
+    cursor.execute(sql_update_query, inputData)
+    mysql.get_db().commit()
     resp = Response(status=201, mimetype='application/json')
     return resp
 
