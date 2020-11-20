@@ -14,3 +14,5 @@ This project is a homework assignment to teach how to get Pycharm setup with Doc
 ![updated_record](screenshots/updated_record.PNG)
 
 ![deleted_record](screenshots/deleted_record_1.PNG)
+
+![postman](screenshots/postman.PNG)
